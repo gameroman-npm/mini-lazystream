@@ -39,7 +39,7 @@ jobs:
         run: bun run test
 
   test-bun:
-    name: Test on Bun
+    name: Lint and Test on Bun
     runs-on: ubuntu-latest
 
     steps:
