@@ -6,7 +6,7 @@ import * as stream from "mini-lazystream";
 
 const tmpDir = "tests/tmp/";
 const readFile = "tests/data.md";
-const writeFile = tmpDir + "data.md";
+const writeFile = `${tmpDir}/data.md`;
 
 await describe("fs", async () => {
   await test("readwrite", () => {
@@ -37,7 +37,6 @@ await describe("fs", async () => {
           });
       });
 
-      // Replaces test.equal
       assert.strictEqual(
         readfd,
         undefined,
@@ -59,8 +58,6 @@ await describe("fs", async () => {
       readable.on("end", function () {
         step();
       });
-      // Note: Writable streams emit 'finish', not 'end'. Kept as 'end' to match your original flow,
-      // but change to 'finish' if the original stream was an actual Writable.
       writable.on("end", function () {
         step();
       });
@@ -73,13 +70,12 @@ await describe("fs", async () => {
             const input = fs.readFileSync(readFile);
             const output = fs.readFileSync(writeFile);
 
-            // Replaces test.ok buffer equality check
             assert.deepStrictEqual(input, output, "Should be equal");
 
             fs.unlinkSync(writeFile);
             fs.rmdirSync(tmpDir);
 
-            resolve(); // Replaces test.done()
+            resolve();
           } catch (err) {
             reject(err);
           }
